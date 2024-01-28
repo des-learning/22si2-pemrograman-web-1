@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   db:
@@ -9,4 +9,10 @@ services:
       MYSQL_USER: userdb
       MYSQL_PASSWORD: rahasia
     volumes:
-      - ./db:/var/lib/mysql
+      - ./dbdata:/var/lib/mysql
+  web:
+    image: php:8.3.2-apache
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html
