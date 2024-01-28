@@ -1,0 +1,20 @@
+version: "3.1"
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: web
+      MYSQL_USER: userdb
+      MYSQL_PASSWORD: rahasia
+    ports:
+      - 33060:3306
+    volumes:
+      - ./dbdata:/var/lib/mysql
+  web:
+    image: php:8.3.2-apache
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html
