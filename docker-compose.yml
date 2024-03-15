@@ -10,6 +10,6 @@ services:
       MYSQL_USER: userdb
       MYSQL_PASSWORD: rahasia
     ports:
-      - 33060:3306
+      - 3306:3306
     volumes:
       - ./dbdata:/var/lib/mysql

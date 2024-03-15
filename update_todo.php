@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
-  $pdo = new PDO('mysql:host=127.0.0.1:33060;dbname=web', 'userdb', 'rahasia');
+  $pdo = new PDO('mysql:host=127.0.0.1:3306;dbname=web', 'userdb', 'rahasia');
 
   $q = $pdo->prepare('select * from todos where id = ?');
   $q->execute([$_GET['id']]);
@@ -44,10 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
 ?>
 <?php
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
-  $pdo = new PDO('mysql:host=127.0.0.1:33060;dbname=web', 'userdb', 'rahasia');
+  $pdo = new PDO('mysql:host=127.0.0.1:3306;dbname=web', 'userdb', 'rahasia');
 
-  $q = $pdo->prepare('update todos set title = ?, state = ?, updated_at = now() where id = ?');
-  $q->execute([$_POST['title'], $_POST['state'], $_POST['id']]);
+  try {
+    $pdo->beginTransaction();
+    $q = $pdo->prepare('select * from todos where id ? for update');
+    $q->execute($_POST['id']);
+    $q = $pdo->prepare('update todos set title = ?, state = ?, updated_at = now() where id = ?');
+    $q->execute([$_POST['title'], $_POST['state'], $_POST['id']]);
+    $pdo->commit();
+  } catch(Exception $e) {
+    $pdo->rollBack();
+    die('Failed to update');
+  }
 
   header('Location: db.php');
 ?>
