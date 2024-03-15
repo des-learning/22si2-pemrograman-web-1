@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Todo Application</title>
+    <!-- css -->
+    <style>
+      h1 {
+        color: blue;
+      }
+      .hidden {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <ul id="todo-list"></ul>
+
+    <input type="text" id="todo" />
+    <button type="button" onclick="addTodo()">Add Todo</button>
+
+    <div id="dialog" class="hidden">
+      <p id="prompt"></p>
+      <button id="ok">Ok</button>
+      <button
+        onclick="document.getElementById('dialog').classList.add('hidden');"
+      >
+        Cancel
+      </button>
+    </div>
+
+    <script>
+      function addTodo() {
+        var todoList = document.getElementById("todo-list");
+        var todo = document.getElementById("todo");
+        if (todo.value === "") {
+          alert("todo harus diisi");
+          return;
+        }
+        const newTodo = createNewTodoElement(todo.value);
+        todoList.appendChild(newTodo);
+        todo.value = "";
+        todo.focus();
+      }
+
+      function createNewTodoElement(content) {
+        const el = document.createElement("li");
+        el.innerText = content;
+        const delButton = document.createElement("button");
+        delButton.innerText = "X";
+        delButton.onclick = function () {
+          /*if (confirm("Yakin menghapus " + el.innerText + "?")) {
+            el.parentElement.removeChild(el);
+          }*/
+          const confirmDialog = document.getElementById("dialog");
+          const prompt = confirmDialog.querySelector("#prompt");
+          prompt.innerText = "Yakin hapus " + el.innerText + "?";
+          const ok = confirmDialog.querySelector("#ok");
+          ok.onclick = function () {
+            el.parentElement.removeChild(el);
+            confirmDialog.classList.add("hidden");
+          };
+          confirmDialog.classList.remove("hidden");
+        };
+        el.appendChild(delButton);
+
+        return el;
+      }
+    </script>
+  </body>
+</html>
