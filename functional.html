@@ -1,0 +1,52 @@
+<html>
+  <body>
+    <script>
+      // closure & higher order function
+      function kali(x) {
+        return function (y) {
+          return x * y;
+        };
+      }
+
+      const kali10 = kali(10);
+      document.write("<p> kali10(5): " + kali10(5) + "</p>");
+
+      // terima function sebagai parameter dan mengembalikan function
+      // sebagai return value
+      function compose(f, g) {
+        return function (x) {
+          return f(g(x));
+        };
+      }
+
+      const c1 = compose(kali(10), kali(10));
+      document.write("<p>compose: " + c1(10) + "</p>");
+
+      // arrow function
+      const tambah = (a, b) => a + b;
+      // tambah = function(a, b) { return a + b};
+      document.write("<p>" + tambah(10, 5) + "</p>");
+
+      const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      // tampil bilangan ganjil secara imperative
+      document.write("<ul>");
+      for (i = 0; i < a.length; i++) {
+        if (a[i] % 2 === 0) {
+          continue;
+        }
+        document.write("<li>" + a[i] + "<li>");
+      }
+      document.write("</ul>");
+      // bilangan ganjil secara deklaratif
+      const ganjil = a.filter((x) => x % 2 !== 0);
+      document.write("<p>ganjil: " + ganjil.join(", ") + "</p>");
+      const akali10 = a.map((x) => x * 10);
+      document.write("<p>a kali 10: " + akali10.join(", ") + "</p>");
+      const sumA = a.reduce((x, y) => x + y, 0);
+      // sumA = a.reduce(function(x, y) { return x + y; }, 0);
+      // function tambah(x, y) { return x + y};
+      // sumA = a.reduce(tambah, 0);
+      document.write("<p>sum a: " + sumA + "</p>");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <script>
+      function heavy(x, y) {
+        return new Promise(
+          (resolve, reject) => setTimeout(() => resolve(x + y), 10000), // simulasi promise nya berhasil (resolved)
+        );
+      }
+
+      // document.write("<p>" + heavy(10, 20) + "</p>");
+      /* heavy(10, 20)
+        .then((x) => document.write("<p>" + x + "</p>")) // handle promise yang berhasil (resolved)
+        .catch((x) => document.write("<p>Promise error: " + x + "</p>")); // handle promise yang gagal (reject)
+      document.write("<p>done</p>"); */
+
+      async function test() {
+        try {
+          const hasil = await heavy(10, 20);
+          document.write("<p>" + hasil + "</p>");
+          document.write("<p>done</p>");
+        } catch (x) {
+          alert(x);
+        }
+      }
+
+      test();
+    </script>
+  </body>
+</html>

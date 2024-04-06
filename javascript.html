@@ -1,0 +1,118 @@
+<html>
+  <body>
+    <script type="text/javascript">
+      //class
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        sayHello(name) {
+          document.write(this.name + ": Hello, " + name);
+        }
+      }
+
+      // object
+      const budi = new Person("budi", 30);
+      document.write(budi.name + ": " + budi.age);
+
+      // object
+      const susi = {
+        name: "susi",
+        age: 20,
+        sayHello: function (name) {
+          document.write(this.name + ": Hello, " + name);
+        },
+      };
+
+      document.write("<p>" + susi.name + ": " + susi.age + "</p>");
+      susi.sayHello(budi.name);
+
+      const a = 10;
+      const b = "nama";
+
+      document.write("<p>" + (a + b) + "</p>"); // 10nama
+      document.write("<p>" + (10 + "1") + "</p>"); // "101"
+      document.write("<p>" + ("10" + 1) + "</p>"); // 101
+      document.write("<p>" + (10 + 1) + "</p>"); // 11
+      document.write("<p>" + 10 * "2" + "</p>"); // 20
+      document.write("<p>" + 10 * "nama" + "</p>"); // NaN (Not a Number)
+      document.write("<p>" + 10 + "1" * 2 + "</p>"); // 102
+
+      const c = [1, 2, 10, 20, 3, 5, 7, 8, 9];
+      document.write("<ul>");
+      for (i = 0; i < c.length; i++) {
+        document.write("<li>" + c[i] + "</li>");
+      }
+      document.write("</ul>");
+      document.write("<ul>");
+      for (i in c) {
+        // i mengacu ke index dari masing2 element array c
+        document.write("<li>" + i + ": " + c[i] + "</li>");
+      }
+      document.write("</ul>");
+      document.write("<ul>");
+      for (i of c) {
+        // i mengacu ke item/value dari masing2 element array c
+        document.write("<li>" + i + "</li>");
+      }
+      document.write("</ul>");
+
+      document.write("<p>c before sort: " + c.join(", ") + "</p>");
+      c.sort();
+      document.write("<p>c after sort: " + c.join(", ") + "</p>");
+
+      c.sort(function (a, b) {
+        // anonymous function, function literal, closure
+        return a - b;
+      });
+      document.write(
+        "<p>c after sort with comparator fn: " + c.join(", ") + "</p>",
+      );
+
+      function compareAngka(a, b) {
+        return a - b;
+      }
+      // const compare = function(a, b) { return a - b; };
+      c.sort(compareAngka);
+
+      const tanggal = new Date();
+      document.write("<p>" + tanggal + "</p>");
+      const year = tanggal.getYear();
+      document.write("<p> Year: " + year + "</p>");
+      const fullYear = tanggal.getFullYear();
+      document.write("<p> Full Year: " + fullYear + "</p>");
+      const month = tanggal.getMonth(); // angka dari 0 (januari)
+      document.write("<p> Month: " + month + "</p>");
+      const date = tanggal.getDate();
+      document.write("<p> Date: " + date + "</p>");
+
+      const d = {
+        name: "Andri",
+        age: null,
+      };
+      document.write("<p>" + d.name + "</p>");
+      document.write("<p>" + d.age + "</p>");
+      document.write("<p>" + d.sayHello + "</p>");
+      if (!0) {
+        document.write("<p>0 dianggap boolean false</p>");
+      }
+      if (!"") {
+        document.write("<p>'' dianggap boolean false</p>");
+      }
+      if (!null) {
+        document.write("<p>null dianggap boolean false</p>");
+      }
+      if (!undefined) {
+        document.write("<p>undefined dianggap boolean false</p>");
+      }
+      if (![]) {
+        document.write("<p>[] tidak dianggap boolean false</p>");
+      } // tapi empty array bukan false
+      if (!{}) {
+        document.write("<p>{} tidak dianggap boolean false</p>");
+      } // begitu juga dengan empty object
+    </script>
+  </body>
+</html>

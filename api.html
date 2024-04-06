@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <input type="text" id="data" />
+    <button type="button" onclick="submit_to_api()">Kirim</button>
+    <div id="output"></div>
+
+    <script>
+      function submit_to_api() {
+        const data = document.getElementById("data").value;
+        fetch("http://localhost:8080/api.php?data=" + data)
+          .then((resp) => resp.json())
+          .then(
+            (json) =>
+              (document.getElementById("output").innerText = json.hasil),
+          )
+          .catch((x) => {
+            alert("error: " + x);
+          });
+      }
+    </script>
+  </body>
+</html>
